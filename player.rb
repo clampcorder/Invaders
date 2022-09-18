@@ -1,3 +1,5 @@
+require './event_handler'
+
 class Player
 
   def initialize
@@ -17,20 +19,28 @@ class Player
   def button_down(id)
     case id
     when Config::PLAYER_1_BINDINGS[:left]
-      @direction = -1
+      @direction = -2
     when Config::PLAYER_1_BINDINGS[:right]
-      @direction = +1
+      @direction = +2
+    when Config::PLAYER_1_BINDINGS[:shoot]
+      EventHandler.publish_event(:shoot, {:x => @position[0] + Config::PIXEL_SIZE / 2})
     else
 
     end
   end
 
   def button_up(id)
-    @direction = 0
+    if [
+      Config::PLAYER_1_BINDINGS[:left], Config::PLAYER_1_BINDINGS[:right]
+    ].include? id then
+      @direction = 0
+    end
   end
 
   def update
-    @position[0] = (@position[0] + @direction)
+    @position[0] = (@position[0] + @direction).clamp(
+      0, Config::WINDOW_X-Config::PIXEL_SIZE
+    )
   end
 
   def draw

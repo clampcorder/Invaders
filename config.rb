@@ -13,6 +13,7 @@ module Config
   PLAYER_1_BINDINGS = {
     :left => Gosu::KB_LEFT,
     :right => Gosu::KB_RIGHT,
+    :shoot => Gosu::KB_SPACE,
   }
 
   # Derived values
