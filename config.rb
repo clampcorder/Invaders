@@ -7,6 +7,8 @@ module Config
   OFFSET_X = 64
   OFFSET_Y = 32
   FULLSCREEN = false
+  SPEED_PLAYER = 4
+  SPEED_BULLET = 8
 
   SOUND_VOLUME = 0.25
 

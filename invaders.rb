@@ -23,6 +23,7 @@ class InvadersGame < Gosu::Window
 
   def update
     @player.update
+    @bullets.reject! { |bullet| bullet.is_dead? }
     @bullets.each(&:update)
   end
 

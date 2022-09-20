@@ -19,9 +19,9 @@ class Player
   def button_down(id)
     case id
     when Config::PLAYER_1_BINDINGS[:left]
-      @direction = -2
+      @direction = -Config::SPEED_PLAYER
     when Config::PLAYER_1_BINDINGS[:right]
-      @direction = +2
+      @direction = +Config::SPEED_PLAYER
     when Config::PLAYER_1_BINDINGS[:shoot]
       EventHandler.publish_event(:shoot, {:x => @position[0] + Config::PIXEL_SIZE / 2})
     else
