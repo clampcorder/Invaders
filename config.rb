@@ -9,6 +9,7 @@ module Config
   FULLSCREEN = false
   SPEED_PLAYER = 4
   SPEED_BULLET = 8
+  DELAY_ALIEN = 32
 
   SOUND_VOLUME = 0.25
 

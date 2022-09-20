@@ -1,5 +1,6 @@
 require 'gosu'
 
+require './alien'
 require './bullet'
 require './config'
 require './event_handler'
@@ -10,6 +11,7 @@ class InvadersGame < Gosu::Window
     super(Config::WINDOW_X, Config::WINDOW_Y, Config::FULLSCREEN)
     EventHandler.register_listener(:shoot, self, :spawn_bullet)
     @player = Player.new
+    @alien = Alien.new
     @bullets = []
   end
 
@@ -23,12 +25,14 @@ class InvadersGame < Gosu::Window
 
   def update
     @player.update
+    @alien.update
     @bullets.reject! { |bullet| bullet.is_dead? }
     @bullets.each(&:update)
   end
 
   def draw
     @player.draw
+    @alien.draw
     @bullets.each(&:draw)
   end
 
