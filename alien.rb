@@ -16,8 +16,24 @@ class Alien
       "\255\255\255\255" * (Config::PIXEL_SIZE ** 2),
     )
     @update_count = 0
+    @dead = false
+    EventHandler.register_listener(:bullet_moved, self, :check_bullet)
+  end
+
+  def is_dead?
+    @dead
   end
   
+  def check_bullet(context)
+    bullet_x = context[:position][0]
+    bullet_y = context[:position][1]
+
+    # TODO, bullet width in config?? or Class attribute?
+    if bullet_x.between?(@position[0], @position[0] + Config::PIXEL_SIZE) and
+      bullet_y.between?(@position[1], @position[1] + Config::PIXEL_SIZE) then
+      @dead = true
+    end
+  end
 
   def update
     @update_count += 1

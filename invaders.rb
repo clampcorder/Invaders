@@ -11,8 +11,9 @@ class InvadersGame < Gosu::Window
     super(Config::WINDOW_X, Config::WINDOW_Y, Config::FULLSCREEN)
     EventHandler.register_listener(:shoot, self, :spawn_bullet)
     @player = Player.new
-    @alien = Alien.new
+    @aliens = [Alien.new]
     @bullets = []
+    @spawn_timer = 0
   end
 
   def button_down(id)
@@ -24,15 +25,21 @@ class InvadersGame < Gosu::Window
   end
 
   def update
+    @spawn_timer += 1
+    if @spawn_timer > 64 then
+      @aliens << Alien.new
+      @spawn_timer = 0
+    end
     @player.update
-    @alien.update
+    @aliens.each(&:update)
+    @aliens.reject! { |bullet| bullet.is_dead? }
     @bullets.reject! { |bullet| bullet.is_dead? }
     @bullets.each(&:update)
   end
 
   def draw
     @player.draw
-    @alien.draw
+    @aliens.each(&:draw)
     @bullets.each(&:draw)
   end
 
