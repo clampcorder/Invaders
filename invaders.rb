@@ -32,7 +32,8 @@ class InvadersGame < Gosu::Window
     end
     @player.update
     @aliens.each(&:update)
-    @aliens.reject! { |bullet| bullet.is_dead? }
+    @aliens.reject! { |alien| alien.is_dead? }
+
     @bullets.reject! { |bullet| bullet.is_dead? }
     @bullets.each(&:update)
   end

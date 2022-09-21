@@ -25,6 +25,7 @@ class Alien
   end
   
   def check_bullet(context)
+    return unless @dead == false
     bullet_x = context[:position][0]
     bullet_y = context[:position][1]
 
@@ -32,6 +33,7 @@ class Alien
     if bullet_x.between?(@position[0], @position[0] + Config::PIXEL_SIZE) and
       bullet_y.between?(@position[1], @position[1] + Config::PIXEL_SIZE) then
       @dead = true
+      EventHandler.publish_event(:bullet_hit, {:id => context[:id]})
     end
   end
 
