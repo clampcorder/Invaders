@@ -5,6 +5,7 @@ require './bullet'
 require './config'
 require './event_handler'
 require './player'
+require './scoreboard'
 
 class InvadersGame < Gosu::Window
   def initialize
@@ -12,6 +13,7 @@ class InvadersGame < Gosu::Window
     EventHandler.register_listener(:shoot, self, :spawn_bullet)
     @player = Player.new
     @aliens = [Alien.new]
+    @scoreboard = Scoreboard.new
     @bullets = []
     @spawn_timer = 0
   end
@@ -31,6 +33,7 @@ class InvadersGame < Gosu::Window
       @spawn_timer = 0
     end
     @player.update
+
     @aliens.each(&:update)
     @aliens.reject! { |alien| alien.is_dead? }
 
@@ -40,6 +43,7 @@ class InvadersGame < Gosu::Window
 
   def draw
     @player.draw
+    @scoreboard.draw
     @aliens.each(&:draw)
     @bullets.each(&:draw)
   end
